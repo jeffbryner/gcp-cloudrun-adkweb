@@ -1,7 +1,6 @@
 # GCP-CloudRun-adkweb
 
 Simple cloud run hosted AI agent using the google agent development kit and the adk web interface.
-
 Based on this starter kickstarter project : https://github.com/jeffbryner/gcp-project-pipeline
 
 ## Why?

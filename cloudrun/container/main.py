@@ -1,15 +1,13 @@
+from google.adk.agents import Agent
 import os
+import google.auth
 
-from flask import Flask
+credentials, project_id = google.auth.default()
+os.environ["GOOGLE_CLOUD_PROJECT"] = project_id
+os.environ["GOOGLE_CLOUD_LOCATION"] = "us-central1"  # change to suitable location
 
-app = Flask(__name__)
-
-
-@app.route("/")
-def hello_world():
-    name = os.environ.get("NAME", "World")
-    return "HELLO {}!".format(name)
-
-
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+root_agent = Agent(
+    model="gemini-2.5-flash",
+    name="ai_assistant",
+    instruction="you are a friendly agent who loves to talk about ice cream.",
+)
