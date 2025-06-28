@@ -6,6 +6,9 @@ ENV PYTHONUNBUFFERED True
 # Copy from the cache instead of linking since it's a mounted volume
 ENV UV_LINK_MODE=copy
 
+# Use vertex by default
+ENV GOOGLE_GENAI_USE_VERTEXAI True
+
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
