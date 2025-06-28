@@ -15,19 +15,6 @@ output "cicd_repository_url" {
   value       = google_sourcerepo_repository.configs.url
 }
 
-/******************************************
-  Service Account
-*******************************************/
-
-output "cloudbuild_sa_email" {
-  description = "Email for privileged service account for cloudbuild/terraform."
-  value       = google_service_account.cloudbuild_scheduler_sa.email
-}
-
-output "cloudbuild_sa_name" {
-  description = "Fully qualified name for privileged service account for cloudbuild/terraform."
-  value       = google_service_account.cloudbuild_scheduler_sa.name
-}
 
 /******************************************
   GCS Terraform State Bucket
