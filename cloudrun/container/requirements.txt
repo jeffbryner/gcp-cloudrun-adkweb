@@ -1,0 +1,5 @@
+google-adk
+langchain-community
+python-dotenv
+stackapi
+toolbox-core
