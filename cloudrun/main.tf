@@ -74,7 +74,7 @@ resource "google_project_organization_policy" "services_policy" {
 # so we don't use the default compute engine service account
 resource "google_service_account" "cloudrun_service_identity" {
   project    = local.project_id
-  account_id = "${local.service_name}-service-account"
+  account_id = "${local.service_name}-svc-act"
 }
 
 resource "google_cloud_run_service" "default" {
@@ -114,4 +114,13 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
   service  = google_cloud_run_service.default.name
 
   policy_data = data.google_iam_policy.noauth.policy_data
+}
+
+
+# allow the  service account to access AI
+resource "google_project_iam_member" "ai_access" {
+  provider = google-beta
+  project  = local.project_id
+  role     = "roles/aiplatform.user"
+  member   = "serviceAccount:${google_service_account.cloudrun_service_identity.email}"
 }
