@@ -10,3 +10,4 @@ cloudrun/terraform.tfvars
 *.pyd
 __pycache__
 .pytest_cache
+cloudrun/container/sessions.db
