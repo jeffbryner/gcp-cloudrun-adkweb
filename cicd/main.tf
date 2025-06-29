@@ -33,17 +33,19 @@ resource "random_id" "suffix" {
 
 locals {
 
-  project_name      = format("%s-%s", var.project_prefix, var.project_name)
-  project_id        = format("%s-%s-%s", var.project_prefix, var.project_name, random_id.suffix.hex)
-  state_bucket_name = format("bkt-%s-%s", "tfstate", local.project_id)
-  art_bucket_name   = format("bkt-%s-%s", "artifacts", local.project_id)
-  repo_name         = format("src-%s", local.project_name)
-  gar_repo_name     = format("%s-%s", var.project_prefix, "containers")
-  is_organization   = var.parent_folder == "" ? true : false
-  parent_id         = var.parent_folder == "" ? var.org_id : split("/", var.parent_folder)[1]
-  project_org_id    = var.folder_id != "" ? null : var.org_id
-  project_folder_id = var.folder_id != "" ? var.folder_id : null
-  cloudbuild_sa     = "serviceAccount:${google_project.cicd.number}@cloudbuild.gserviceaccount.com"
+  project_name        = format("%s-%s", var.project_prefix, var.project_name)
+  project_id          = format("%s-%s-%s", var.project_prefix, var.project_name, random_id.suffix.hex)
+  state_bucket_name   = format("bkt-%s-%s", "tfstate", local.project_id)
+  art_bucket_name     = format("bkt-%s-%s", "artifacts", local.project_id)
+  repo_name           = format("src-%s", local.project_name)
+  gar_repo_name       = format("%s-%s", var.project_prefix, "containers")
+  is_organization     = var.parent_folder == "" ? true : false
+  parent_id           = var.parent_folder == "" ? var.org_id : split("/", var.parent_folder)[1]
+  project_org_id      = var.folder_id != "" ? null : var.org_id
+  project_folder_id   = var.folder_id != "" ? var.folder_id : null
+  cloudbuild_sa       = "serviceAccount:${google_project.cicd.number}-compute@developer.gserviceaccount.com"
+  cloudbuild_sa_email = "${google_project.cicd.number}-compute@developer.gserviceaccount.com"
+
   services = [
     "admin.googleapis.com",
     "cloudbilling.googleapis.com",

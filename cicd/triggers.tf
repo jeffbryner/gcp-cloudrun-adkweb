@@ -13,9 +13,10 @@
 # ================== Triggers for "prod" environment ==================
 
 resource "google_cloudbuild_trigger" "validate_prod" {
-  project     = google_project.cicd.project_id
-  name        = "tf-validate-prod"
-  description = "Terraform validate job triggered on push event."
+  project         = google_project.cicd.project_id
+  name            = "tf-validate-prod"
+  description     = "Terraform validate job triggered on push event."
+  service_account = "projects/${local.project_id}/serviceAccounts/${local.cloudbuild_sa_email}"
 
   # if needed, trigger on only specific file changes.
   # included_files = [
@@ -41,9 +42,10 @@ resource "google_cloudbuild_trigger" "validate_prod" {
 }
 
 resource "google_cloudbuild_trigger" "plan_prod" {
-  project     = google_project.cicd.project_id
-  name        = "tf-plan-prod"
-  description = "Terraform plan job triggered on push event."
+  project         = google_project.cicd.project_id
+  name            = "tf-plan-prod"
+  description     = "Terraform plan job triggered on push event."
+  service_account = "projects/${local.project_id}/serviceAccounts/${local.cloudbuild_sa_email}"
 
   # if needed, trigger on only specific file changes.
   # included_files = [
@@ -69,10 +71,11 @@ resource "google_cloudbuild_trigger" "plan_prod" {
 }
 
 resource "google_cloudbuild_trigger" "apply_prod" {
-  disabled    = true
-  project     = google_project.cicd.project_id
-  name        = "tf-apply-prod"
-  description = "Terraform apply job triggered on push event and/or schedule."
+  disabled        = true
+  project         = google_project.cicd.project_id
+  name            = "tf-apply-prod"
+  description     = "Terraform apply job triggered on push event and/or schedule."
+  service_account = "projects/${local.project_id}/serviceAccounts/${local.cloudbuild_sa_email}"
 
   # if needed, trigger on only specific file changes.
   # included_files = [
