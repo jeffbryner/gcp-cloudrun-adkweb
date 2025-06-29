@@ -9,13 +9,12 @@ ENV UV_LINK_MODE=copy
 # Use vertex by default
 ENV GOOGLE_GENAI_USE_VERTEXAI True
 
-# Copy local code to the container image.
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+# Install the project into `/app`
+WORKDIR /app
+ADD . /app
 
 # Install production dependencies.
-RUN uv pip install -r requirements.txt
+RUN uv pip install -r requirements.txt --system
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
